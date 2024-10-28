@@ -865,3 +865,69 @@ class Snack:
 # mac = Snack()
 # mac.add(6)
 # mac.print_peaple()
+# Warehouse Robot
+class Cleanhouse:
+    def __init__(self):
+        self.linha = 0
+        self.coluna = 0
+        self.matrix = []
+        self.pegar = True
+
+    def move(self):
+        # Inicializa a matriz se ela ainda não existir
+        if len(self.matrix) == 0:
+            for i in range(10):
+                self.matrix.append(['.'] * 10)
+            self.matrix[0][0] = 'robot'
+            return self.move()
+
+        # Pede o comando de movimento
+        move_peca = str(input('move:[n/w/e/s]'))
+        if move_peca == 'n':
+            if self.coluna - 1 < 0:
+                print('já está no topo')
+            else:
+                self.matrix[self.coluna][self.linha] = '-'
+                self.coluna -= 1
+                self.matrix[self.coluna][self.linha] = 'robot'
+        elif move_peca == 'w':
+            if self.linha - 1 < 0:
+                print('não tem como movimentar para a esquerda')
+            else:
+                self.matrix[self.coluna][self.linha] = '-'
+                self.linha -= 1
+                self.matrix[self.coluna][self.linha] = 'robot'
+        elif move_peca == 'e':
+            if self.linha + 1 >= len(self.matrix[self.coluna]):
+                print('não tem como movimentar para a direita')
+            else:
+                self.matrix[self.coluna][self.linha] = '-'
+                self.linha += 1
+                self.matrix[self.coluna][self.linha] = 'robot'
+        elif move_peca == 's':
+            if self.coluna + 1 >= len(self.matrix):
+                print('não tem como movimentar para baixo')
+            else:
+                self.matrix[self.coluna][self.linha] = '-'
+                self.coluna += 1
+                self.matrix[self.coluna][self.linha] = 'robot'
+        else:
+            print('Comando inválido.')
+
+        return self.pegarLargar()
+
+    def pegarLargar(self):
+        resposta = str(input('Largar?? (s/n): '))
+        if resposta.lower() == 's':
+            self.matrix[self.coluna][self.linha] = 'd'
+        return self.imprimir()
+
+    def imprimir(self):
+        for linha in self.matrix:
+            print(" ".join(linha))
+
+# game_house = Cleanhouse()
+# game_house.move()
+# game_house.move()
+# game_house.move()
+# game_house.move()
