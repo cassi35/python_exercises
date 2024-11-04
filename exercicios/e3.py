@@ -119,7 +119,7 @@ import string
 
 def emOrdem(alfabeto, i):
 
-    
+
     if i >= len(alfabeto):
         return
 
@@ -137,3 +137,20 @@ alfabeto = list(string.ascii_lowercase)
 emOrdem(alfabeto, 0)
 
 
+#  Mirage Maintenance
+def sequencia():
+    conjunto = []
+    for i in range(0, 5):
+        # temp = int(input('escolha um num: '))
+        temp = i
+        conjunto.append(temp)
+    return diferenca1(conjunto, len(conjunto)-1, [])
+
+def diferenca1(arr, index, diferenca):
+    if index <= 0:  # Parar quando index for menor ou igual a 0
+        return diferenca[::-1]  # Reverter a lista de diferenças para manter a ordem correta
+    subtracao = arr[index] - arr[index - 1]
+    diferenca.append(subtracao)
+    return diferenca1(arr, index - 1, diferenca)
+
+print(sequencia())
