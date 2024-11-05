@@ -153,4 +153,4 @@ def diferenca1(arr, index, diferenca):
     diferenca.append(subtracao)
     return diferenca1(arr, index - 1, diferenca)
 
-print(sequencia())
+# print(sequencia())
