@@ -18,6 +18,8 @@ def click():
     #     print('ok')
     # else:
     #     print('not ok')
+    
+    pass
 window = Tk()
 window.geometry('400x400')
 button = Button(window,command=click,text='click me !')
