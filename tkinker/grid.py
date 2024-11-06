@@ -9,4 +9,8 @@ lastNameEtry = Entry(window).grid(row=1,column=1)
 
 emailLabel = Label(window,text='email: ').grid(row=2,column=0)
 emailEtry = Entry(window).grid(row=2,column=1)
+
+submitbutton = Button(window,text='submit').grid(row=3,column=0,columnspan=2)
+
+
 window.mainloop()
