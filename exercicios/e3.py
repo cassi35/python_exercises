@@ -299,3 +299,120 @@ def supply_stack():
 # Tuning Trouble
                
 
+def calculate_card_points(cards):
+    total_pontos = 0
+    for card in cards:
+        num_premiados = set(card[0])  # Usando set para facilitar a busca
+        nums = card[1]
+        pontuacao_do_cartao = 0
+        multiplicador = 1
+        for num in nums:
+            if num in num_premiados:
+                pontuacao_do_cartao += multiplicador
+                multiplicador *= 2  # Dobra o valor para o próximo acerto
+                num_premiados.remove(num)  # Remove para evitar contagem duplicada
+        total_pontos += pontuacao_do_cartao
+    return total_pontos
+
+# Exemplo de uso
+cards = [
+    ([41, 48, 83, 86, 17], [83, 86, 6, 31, 17, 9, 48, 53]),
+    ([13, 32, 20, 16, 61], [61, 30, 68, 82, 17, 32, 24, 19]),
+    ([1, 21, 53, 59, 44], [69, 82, 63, 72, 16, 21, 14, 1]),
+    ([41, 92, 73, 84, 69], [59, 84, 76, 51, 58, 5, 54, 83]),
+    ([87, 83, 26, 28, 32], [88, 30, 70, 12, 93, 22, 82, 36]),
+    ([31, 18, 13, 56, 72], [74, 77, 10, 23, 35, 67, 36, 11])
+]
+
+# print(calculate_card_points(cards))
+#  Pipe Maze 
+from collections import deque
+
+# Exemplo de grade
+grade = [
+    "..F7.",
+    ".FJ|.",
+    "SJ.L7",
+    "|F--J",
+    "LJ..."
+]
+
+# Mapeamento de cada tipo de tubo e suas conexões
+conexoes = {
+    '|': [(0, -1), (0, 1)],  # conecta norte-sul
+    '-': [(-1, 0), (1, 0)],  # conecta leste-oeste
+    'L': [(0, -1), (1, 0)],  # conecta norte-leste
+    'J': [(0, -1), (-1, 0)], # conecta norte-oeste
+    '7': [(0, 1), (-1, 0)],  # conecta sul-oeste
+    'F': [(0, 1), (1, 0)],   # conecta sul-leste
+}
+
+# Função para encontrar o ponto inicial 'S' na grade
+def encontrar_inicio(grade):
+    for y, linha in enumerate(grade):
+        for x, char in enumerate(linha):
+            if char == 'S':
+                return (x, y)
+    return None
+
+# Função para explorar o loop e calcular a distância máxima
+def calcular_distancia_maxima(grade):
+    inicio = encontrar_inicio(grade)
+    if not inicio:
+        return 0
+    
+    fila = deque([(inicio, 0)])  # (posição, distância)
+    visitado = set([inicio])
+    max_distancia = 0
+    
+    while fila:
+        (x, y), distancia = fila.popleft()
+        max_distancia = max(max_distancia, distancia)
+        
+        # Identificar o tipo de tubo na posição atual
+        tubo = grade[y][x]
+        if tubo not in conexoes:
+            continue
+        
+        # Explorar todas as direções conectadas do tubo atual
+        for dx, dy in conexoes[tubo]:
+            nx, ny = x + dx, y + dy
+            
+            # Verifica se a posição nova está dentro da grade
+            if 0 <= ny < len(grade) and 0 <= nx < len(grade[0]):
+                # Verifica se a nova posição tem um tubo e se não foi visitada ainda
+                proximo_tubo = grade[ny][nx]
+                if proximo_tubo in conexoes and (nx, ny) not in visitado:
+                    # Adiciona ao conjunto de visitados e à fila com a nova distância
+                    visitado.add((nx, ny))
+                    fila.append(((nx, ny), distancia + 1))
+                    
+    return max_distancia
+
+# Chamada da função e impressão do resultado
+distancia_maxima = calcular_distancia_maxima(grade)
+# print("A maior distância do ponto inicial S no loop é:", distancia_maxima)
+#  Mirage Maintenance
+def maintenage(sequencia):
+    soma = 0
+    last = sequencia[-1]  # Último valor da sequência
+    while True:
+        extraindo = []
+        # Calculando as diferenças entre os elementos consecutivos
+        for i in range(1, len(sequencia)):  # Comece a partir do índice 1
+            subtracao = sequencia[i] - sequencia[i-1]
+            extraindo.append(subtracao)
+
+        soma += extraindo[-1]  # Adiciona a última diferença ao somatório
+        
+        # Verifica se todas as diferenças são zero
+        if all(i == 0 for i in extraindo):
+            break
+        
+        sequencia = extraindo  # Substitui a sequência pelas diferenças
+    
+    return soma + last  # Retorna a soma das diferenças + o último valor da sequência
+
+# Teste
+print(maintenage([10, 13, 16 ,21 ,30 ,45]))  # Exemplo de saída: 18 
+
