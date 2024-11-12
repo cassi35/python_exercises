@@ -311,4 +311,4 @@ def guess(times):
 
 # guess(0)
 
-# ok tenho exefcios gracas a deus 
+# criei uma pull request 
