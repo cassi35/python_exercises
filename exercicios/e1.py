@@ -310,3 +310,4 @@ def guess(times):
                     return "acabou"
 
 # guess(0)
+# ok tenho exefcios gracas a deus
