@@ -310,4 +310,5 @@ def guess(times):
                     return "acabou"
 
 # guess(0)
-# ok tenho exefcios gracas a deus
+
+# criei uma pull request oura pull request
