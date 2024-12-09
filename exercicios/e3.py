@@ -416,3 +416,58 @@ def maintenage(sequencia):
 # Teste
 print(maintenage([10, 13, 16 ,21 ,30 ,45]))  # Exemplo de saída: 18 
 
+
+def quiz(aluno):
+    quizes = []
+    tabelaNomes = []
+    global link,codigo
+    def testeDataType(resposta):
+        if type(int(resposta)) == int:
+            return int(resposta)
+        else:
+            return resposta
+    while True:
+        pergunta = str(input("adicione pergunta: ")) #professor
+        resposta = testeDataType(input("insira a resposta: "))
+        quizes.append({"pergunta":pergunta,"resposta":resposta})
+        continuar = str(input("deseja continuar?:[s/n] "))
+        if continuar == 'n':
+            for i in range(0,len(quizes)):
+                print(i,quizes[i]['pergunta'])
+            alterar = str(input("deseja alterar?:\ndigite [s/n]"))
+            if alterar == 'n':
+                import random
+                codigo = random.randint(0,10)
+                link = f'https:localhost:{codigo}'
+                break
+            else:
+                numero = int(input("qual numero da pergunta?:"))
+                perguntaRefeita = str(input("adicione pergunta: ")) #professor
+                respostaRefeita = testeDataType(input("insira a resposta: "))
+                quizes[numero]["pergunta"] = perguntaRefeita
+                quizes[numero]["resposta"] = respostaRefeita
+                continue
+    
+    while aluno >= 0: # outra pagina do aluno com link
+        acertos = 0
+        nome = str(input("insira sue nome: "))
+        for i in range(0,len(quizes)):
+            print(quizes[i]["pergunta"])
+            if type(quizes[i]["resposta"]) == int:
+                resposta = int(input("insira sua resposta: "))
+                if resposta == quizes[i]["resposta"]:
+                    acertos = acertos+1
+            else:
+                resposta = str(input("insira sua resposta: "))
+                if resposta == quizes[i]["resposta"]:
+                    acertos = acertos+1
+        print(f'voce acertou {acertos} questoes')
+        tabelaNomes.append({"nome":nome,"acertos":acertos})
+        aluno = aluno -1    
+    return tabelaNomes
+
+chamada = 5
+quiz(chamada)
+
+carro =[ {"nome":"fiat"},{"nome":12}]
+print(type(carro[1]["nome"])== str)
