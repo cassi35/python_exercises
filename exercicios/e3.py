@@ -467,7 +467,7 @@ def quiz(aluno):
     return tabelaNomes
 
 chamada = 5
-quiz(chamada)
+# quiz(chamada)
 
-carro =[ {"nome":"fiat"},{"nome":12}]
-print(type(carro[1]["nome"])== str)
+# carro =[ {"nome":"fiat"},{"nome":12}]
+# print(type(carro[1]["nome"])== str)
