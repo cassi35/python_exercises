@@ -31,3 +31,44 @@ for i in range(0,5):
                           'hgt':height,'ecl':eyesColor,'eyr':yearExpiration})
     
 print(passportProcessing(listaPassport))
+
+# --- Day 5: Binary Boarding ---
+# Função para calcular o número da linha ou coluna baseado na string e no intervalo inicial
+def decode_position(instructions, lower_char, upper_char, total_range):
+    low, high = 0, total_range - 1
+    for char in instructions:
+        mid = (low + high) // 2
+        if char == lower_char:
+            high = mid  # Metade inferior
+        elif char == upper_char:
+            low = mid + 1  # Metade superior
+    return low  # No final, low e high serão iguais
+
+# Função principal para calcular o maior ID de assento
+def find_highest_seat_id(boarding_passes):
+    highest_id = 0
+    
+    for bp in boarding_passes:
+        # Primeiros 7 caracteres determinam a linha
+        row = decode_position(bp[:7], 'F', 'B', 128)
+        # Últimos 3 caracteres determinam a coluna
+        column = decode_position(bp[7:], 'L', 'R', 8)
+        # Calcula o ID do assento
+        seat_id = row * 8 + column
+        # Atualiza o maior ID encontrado
+        highest_id = max(highest_id, seat_id)
+    
+    return highest_id
+
+# Entrada (substitua por sua lista de passes de embarque)
+boarding_passes = [
+    "FBFBBFFRLR",
+    "BFFFBBFRRR",
+    "FFFBBBFRRR",
+    "BBFFBBFRLL",
+    # Adicione mais passes de embarque aqui
+]
+
+# Resultado
+highest_seat_id = find_highest_seat_id(boarding_passes)
+print(f"O maior ID de assento é: {highest_seat_id}")
