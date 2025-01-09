@@ -83,6 +83,40 @@ def password_philosophy():
 
 # password_philosophy()
 
+# --- Day 3: Toboggan Trajectory ---
+def contar_arvores(mapa, movimento_direita, movimento_baixo):
+    arvores_encontradas = 0
+    posicao_horizontal = 0
+    largura_mapa = len(mapa[0])  
+    
+    for linha in range(0, len(mapa), movimento_baixo):
+        if mapa[linha][posicao_horizontal % largura_mapa] == '#':
+            arvores_encontradas += 1
+
+        # Move para a direita no mapa
+        posicao_horizontal += movimento_direita
+
+    return arvores_encontradas
+
+mapa_exemplo = [
+    "..##.......",
+    "#...#...#..",
+    ".#....#..#.",
+    "..#.#...#.#",
+    ".#...##..#.",
+    "..#.##.....",
+    ".#.#.#....#",
+    ".#........#",
+    "#.##...#...",
+    "#...##....#",
+    ".#..#...#.#"
+]
+
+resultado = contar_arvores(mapa_exemplo, movimento_direita=3, movimento_baixo=1)
+
+print(f"Número de árvores encontradas: {resultado}")
+
+
 
 #year 2020 exerc--- Day 4: Passport Processing ---
 from colour import Color
@@ -125,34 +159,28 @@ def decode_position(instructions, lower_char, upper_char, total_range):
     for char in instructions:
         mid = (low + high) // 2
         if char == lower_char:
-            high = mid  # Metade inferior
+            high = mid  
         elif char == upper_char:
-            low = mid + 1  # Metade superior
-    return low  # No final, low e high serão iguais
+            low = mid + 1 
+    return low  
 
-# Função principal para calcular o maior ID de assento
 def find_highest_seat_id(boarding_passes):
     highest_id = 0
     
     for bp in boarding_passes:
-        # Primeiros 7 caracteres determinam a linha
         row = decode_position(bp[:7], 'F', 'B', 128)
-        # Últimos 3 caracteres determinam a coluna
         column = decode_position(bp[7:], 'L', 'R', 8)
-        # Calcula o ID do assento
         seat_id = row * 8 + column
-        # Atualiza o maior ID encontrado
         highest_id = max(highest_id, seat_id)
     
     return highest_id
 
-# Entrada (substitua por sua lista de passes de embarque)
 boarding_passes = [
     "FBFBBFFRLR",
     "BFFFBBFRRR",
     "FFFBBBFRRR",
     "BBFFBBFRLL",
-    # Adicione mais passes de embarque aqui
+  
 ]
 
 # # Resultado
