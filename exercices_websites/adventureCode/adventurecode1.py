@@ -186,5 +186,28 @@ boarding_passes = [
 # # Resultado
 # highest_seat_id = find_highest_seat_id(boarding_passes)
 # print(f"O maior ID de assento é: {highest_seat_id}")
+# --- Day 6: Custom Customs ---
+def questionario(pessoas):
+    grupos = pessoas.strip().split('\n\n')
+
+    somatoria_total = 0
+
+    for grupo in grupos:
+        respostas = ''.join(grupo.split('\n'))
+        respostas_unicas = set(respostas)
+        somatoria_total += len(respostas_unicas)
+
+    return somatoria_total
 
 
+respostas_pessoas = 'abc\n\na\nb\nc\n\nab\nac\n\na\na\na\n\nb\n'
+resultado = questionario(respostas_pessoas)
+print("Resultado:", resultado)
+# --- Day 7: Handy Haversacks ---
+
+def handy_haversacks(color): #bags must be color-coded
+    rules = [{},{},{},{},{}]
+# How many bag colors can eventually contain at least one shiny gold bag? 
+
+color = 'shiny gold'
+handy_haversacks(color)
