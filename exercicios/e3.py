@@ -471,3 +471,5 @@ chamada = 5
 
 # carro =[ {"nome":"fiat"},{"nome":12}]
 # print(type(carro[1]["nome"])== str)
+
+

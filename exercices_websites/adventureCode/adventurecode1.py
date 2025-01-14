@@ -204,10 +204,129 @@ respostas_pessoas = 'abc\n\na\nb\nc\n\nab\nac\n\na\na\na\n\nb\n'
 resultado = questionario(respostas_pessoas)
 print("Resultado:", resultado)
 # --- Day 7: Handy Haversacks ---
+from collections import defaultdict, deque
 
-def handy_haversacks(color): #bags must be color-coded
-    rules = [{},{},{},{},{}]
-# How many bag colors can eventually contain at least one shiny gold bag? 
+def parse_rules(rules):
+    graph = defaultdict(list)
+    for rule in rules:
+        bag, contains = rule.split(" bags contain ")
+        if "no other bags" in contains:
+            continue
+        for contained in contains.split(", "):
+            count, adj, color, _ = contained.split()
+            graph[f"{adj} {color}"].append(bag)
+    return graph
 
-color = 'shiny gold'
-handy_haversacks(color)
+def count_outer_bags(graph, target):
+    queue = deque([target])
+    visited = set()
+    
+    while queue:
+        current = queue.popleft()
+        for neighbor in graph[current]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    
+    return len(visited)
+
+# Exemplo de entrada
+rules = [
+    "light red bags contain 1 bright white bag, 2 muted yellow bags.",
+    "dark orange bags contain 3 bright white bags, 4 muted yellow bags.",
+    "bright white bags contain 1 shiny gold bag.",
+    "muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.",
+    "shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.",
+    "dark olive bags contain 3 faded blue bags, 4 dotted black bags.",
+    "vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.",
+    "faded blue bags contain no other bags.",
+    "dotted black bags contain no other bags."
+]
+
+# Construindo o grafo
+graph = parse_rules(rules)
+
+# Calculando o número de bolsas que podem conter "shiny gold"
+result = count_outer_bags(graph, "shiny gold")
+# print(f"Número de cores de bolsas que podem conter 'shiny gold': {result}")
+
+# --- Day 8: Handheld Halting ---
+
+def interpretador_de_codigo():
+    instructions = [
+    ("nop", 0),
+    ("acc", 1),
+    ("jmp", 4),
+    ("acc", 3),
+    ("jmp", -3),
+    ("acc", -99),
+    ("acc", 1),
+    ("jmp", -4),
+    ("acc", 6)
+    ]
+    index = 0
+    visited = []
+    acumulador = 0
+    while instructions[index] != None:
+        current_index = index 
+        if current_index in visited:
+            return print("laco infinito detectado")
+        else:
+            if instructions[index][0] == "acc":
+                acumulador = acumulador + 1
+                visited.append(current_index)
+            elif instructions[index][0] == "jmp":
+                index = index + instructions[index][1]
+                visited.append(current_index)
+            else:
+                index = index +1 
+    return print("não tem loop infinito")
+# interpretador_de_codigo()
+
+
+# --- Day 9: Encoding Error ---
+def find_invalid_number(data, preamble_size):
+    for i in range(preamble_size, len(data)):
+        preamble = data[i - preamble_size:i]
+        current_number = data[i]
+        if not any(current_number - x in preamble and current_number - x != x for x in preamble):
+            return current_number 
+
+    return None 
+
+data = [
+    35, 20, 15, 25, 47,
+    40, 62, 55, 65, 95,
+    102, 117, 150, 182, 127,
+    219, 299, 277, 309, 576
+]
+preamble_size = 5 
+
+invalid_number = find_invalid_number(data, preamble_size)
+print(f"O primeiro número inválido é: {invalid_number}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
