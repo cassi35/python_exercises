@@ -244,10 +244,10 @@ rules = [
 ]
 
 # Construindo o grafo
-graph = parse_rules(rules)
+# graph = parse_rules(rules)
 
 # Calculando o número de bolsas que podem conter "shiny gold"
-result = count_outer_bags(graph, "shiny gold")
+# result = count_outer_bags(graph, "shiny gold")
 # print(f"Número de cores de bolsas que podem conter 'shiny gold': {result}")
 
 # --- Day 8: Handheld Halting ---
@@ -302,16 +302,97 @@ data = [
 ]
 preamble_size = 5 
 
-invalid_number = find_invalid_number(data, preamble_size)
-print(f"O primeiro número inválido é: {invalid_number}")
+# invalid_number = find_invalid_number(data, preamble_size)
+# print(f"O primeiro número inválido é: {invalid_number}")
 
 
+# --- Day 10: Adapter Array ---
 
+def adapter(adaptadores):
+    for i in range(0,len(adaptadores)):
+      swapped = False
+      for j in range(0,len(adaptadores)-i-1):
+          if adaptadores[j] > adaptadores[j+1]:
+              adaptadores[j],adaptadores[j+1] = adaptadores[j+1],adaptadores[j]
+              swapped = True
+      if swapped == False:
+          break  
+    diferenca_1 =1
+    diferenca_3 = 1
+    print(len(adaptadores))
+    i = 1
+    while i < len(adaptadores):
+        if adaptadores[i-1] +1 == adaptadores[i]:
+            diferenca_1 = diferenca_1 +1 
+            i = i +1
+        else:
+            diferenca_3 = diferenca_3 +1 
+            i = i +1 
 
+    return print(diferenca_1 * diferenca_3)
 
+numeros = [
+    28, 33, 18, 42, 31, 14, 46, 20, 48, 47, 
+    24, 23, 49, 45, 19, 38, 39, 11, 1, 32, 
+    25, 35, 8, 17, 7, 9, 4, 2, 34, 10, 3
+]
+# adapter(numeros)
 
+# --- Day 11: Seating System ---
 
+def count_occupied_neighbors(matrix, row, col):
+    directions = [
+        (-1, -1), (-1, 0), (-1, 1),
+        (0, -1),         (0, 1),
+        (1, -1), (1, 0), (1, 1)
+    ]
+    occupied = 0
+    rows, cols = len(matrix), len(matrix[0])
 
+    for dr, dc in directions:
+        r, c = row + dr, col + dc
+        if 0 <= r < rows and 0 <= c < cols and matrix[r][c] == '#':
+            occupied += 1
+    return occupied
+
+def simulate_seating(matrix):
+    rows, cols = len(matrix), len(matrix[0])
+    while True:
+        new_matrix = [row[:] for row in matrix]
+        changed = False
+
+        for row in range(rows):
+            for col in range(cols):
+                if matrix[row][col] == 'L' and count_occupied_neighbors(matrix, row, col) == 0:
+                    new_matrix[row][col] = '#'
+                    changed = True
+                elif matrix[row][col] == '#' and count_occupied_neighbors(matrix, row, col) >= 4:
+                    new_matrix[row][col] = 'L'
+                    changed = True
+
+        if not changed:
+            break
+        matrix = new_matrix
+
+    return sum(row.count('#') for row in matrix)
+
+# Matriz inicial fornecida
+matriz = [
+    list("L.LL.LL.LL"),
+    list("LLLLLLL.LL"),
+    list("L.L.L..L.."),
+    list("LLLL.LL.LL"),
+    list("L.LL.LL.LL"),
+    list("L.LLLLL.LL"),
+    list("..L.L....."),
+    list("LLLLLLLLLL"),
+    list("L.LLLLLL.L"),
+    list("L.LLLLL.LL")
+]
+
+# Executando a simulação
+total_occupied = simulate_seating(matriz)
+print("Número total de assentos ocupados:", total_occupied)
 
 
 

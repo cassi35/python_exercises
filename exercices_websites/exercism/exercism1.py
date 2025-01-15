@@ -70,12 +70,12 @@ class Robo_simulator:
                 self.row += 1
         return print(self.onde_esta[0], self.onde_esta[1])
 
-robo = Robo_simulator()
-robo.cordenadas_entrada(7, 3)
-robo.printar_entrada()
-robo.mover('d')
-robo.mover('a')
-robo.mover('l')
+# robo = Robo_simulator()
+# robo.cordenadas_entrada(7, 3)
+# robo.printar_entrada()
+# robo.mover('d')
+# robo.mover('a')
+# robo.mover('l')
 
 
 # placar de basquete
@@ -140,3 +140,8 @@ class PartidaBasquete:
         print("Fila de Espera Atual:", self.fila_espera)
 
 
+# A leap year
+def leap_year(calendar):
+    return (calendar % 4 and calendar % 400) == 0
+# print(leap_year(1997))
+#  Spiral Matrix 
