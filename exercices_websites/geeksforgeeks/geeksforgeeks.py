@@ -54,3 +54,5 @@ def entrada_sum_two():
     target = 16
     print(sum_two(arr,target))
 entrada_sum_two()
+
+
