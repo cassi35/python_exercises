@@ -145,3 +145,44 @@ def leap_year(calendar):
     return (calendar % 4 and calendar % 400) == 0
 # print(leap_year(1997))
 #  Spiral Matrix 
+
+
+# Grep
+def grep_comando():
+    import re
+    print('contrua um arquivo')
+    nome = str(input(f"insira o nome do arquivo:"))
+    conteudo = str(input(f"insira o conteudo do arquivo {nome}\n"))
+    comando = str(input(f"comando grep: --> "))
+    conjuntos = "-n -l -i -v -x"
+    comando = comando.rsplit() 
+    if len(comando) != 4:
+        print("err:length undefined")
+        return grep_comando()
+    elif re.search("grep",comando[0]) == None or re.search(f"{conjuntos}",comando[1]) == None or re.search(f"{conteudo}",comando[2])  or re.search(f"{nome}",comando[3]):
+        print("err:comand")
+        return grep_comando()
+    else:
+        conjunto = re.findall(f"{conjuntos}",comando[1])[0]
+        conteudo_escolhido = re.findall(f"{conteudo}",comando[2])[0]
+        if conjunto == '-n':
+            return print(len(conteudo_escolhido))
+        elif conjunto == '-l':
+            return print(nome)
+        elif conjunto == '-v':
+            lines = []
+            refeito = conteudo.rsplit()
+            for line in refeito:
+                if re.search(f"{comando[2]}",line) == None:
+                    lines.append(line)
+            return print(lines)
+        else:
+            lines = []
+            refeito = conteudo.rsplit()
+            for line in refeito:
+                if line == comando[2]:
+                    lines.append(line)
+            return print(lines)
+# grep_comando()
+
+
