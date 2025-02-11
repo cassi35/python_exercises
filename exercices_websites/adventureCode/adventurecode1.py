@@ -202,7 +202,7 @@ def questionario(pessoas):
 
 respostas_pessoas = 'abc\n\na\nb\nc\n\nab\nac\n\na\na\na\n\nb\n'
 resultado = questionario(respostas_pessoas)
-print("Resultado:", resultado)
+# print("Resultado:", resultado)
 # --- Day 7: Handy Haversacks ---
 from collections import defaultdict, deque
 
@@ -392,8 +392,17 @@ matriz = [
 
 # Executando a simulação
 total_occupied = simulate_seating(matriz)
-print("Número total de assentos ocupados:", total_occupied)
+# print("Número total de assentos ocupados:", total_occupied)
 
+# --- Day 13: Shuttle Search ---
+def earliest_bus(timestamp, buses):
+    buses = [int(bus) for bus in buses.split(",") if bus != "x"] 
+    waiting_times = {bus: bus - (timestamp % bus) for bus in buses} 
+    best_bus = min(waiting_times, key=waiting_times.get) 
+    return best_bus * waiting_times[best_bus] 
+timestamp = 939
+buses = "7,13,x,x,59,x,31,19"
+print(earliest_bus(timestamp, buses))
 
 
 
