@@ -73,7 +73,7 @@ This project is licensed under the BSD License. See the [LICENSE](http://_vscode
 
 ## Contact
 
-For more information, contact [your-email@example.com](mailto:your-email@example.com).
+For more information, contact [cgrsobral@gmail.com](mailto:cgrsobral@gmail.com).
 
 ---
 
