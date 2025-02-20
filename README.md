@@ -44,7 +44,7 @@ Welcome to the **Python Exercises** repository! This repository contains a varie
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/python_exercises.git
+    git clone https://github.com/cassi35/python_exercises.git
     ```
 
 2. Navigate to the desired directory:
