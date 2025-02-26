@@ -11,7 +11,7 @@ def binarySeach(arr,low,high,x):
 arr = [2, 3, 4, 10, 40]
 x = 10
 result = binarySeach(arr,0,len(arr)-1,x)
-print(result)
+# print(result)
 # def LeftView(self, root):
 #         if not root:
 #             return []
@@ -53,5 +53,16 @@ def entrada_sum_two():
     arr = [1, 4, 45, 6, 10, 8]
     target = 16
     print(sum_two(arr,target))
-entrada_sum_two()
+# entrada_sum_two()
 
+
+# Longest Increasing Subsequence
+def longest_increasing_subsequence(arr):
+    n = len(arr)
+    dp = [1] * n  
+    for i in range(n):
+        for j in range(i):
+            if arr[i] > arr[j]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    return dp
+print(longest_increasing_subsequence([5, 8, 3, 7, 9, 1]))
